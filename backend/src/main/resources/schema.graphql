@@ -5,20 +5,20 @@ type Query{
 type Product{
     id:ID
     name:String
-    price:Int
-    weight:Int
-    Category:Category
-    Dimension:Dimension
+    price:String
+    imageUrl:String
+    category:Category
+    description:Description
 }
 
-type Dimension {
-    length:String
-    breadth:String
-    height:String
+type Description {
+    id:ID
+    description:String
+    weight:String
 }
 
 type Category {
     parent:String
-    child:String
-    subChild:String
+    child:[String]
+#    products:[Product]
 }
