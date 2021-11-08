@@ -1,0 +1,24 @@
+type Query{
+    productById(id:ID):Product
+    allProduct:[Product]
+}
+type Product{
+    id:ID
+    name:String
+    price:Int
+    weight:Int
+    Category:Category
+    Dimension:Dimension
+}
+
+type Dimension {
+    length:String
+    breadth:String
+    height:String
+}
+
+type Category {
+    parent:String
+    child:String
+    subChild:String
+}
