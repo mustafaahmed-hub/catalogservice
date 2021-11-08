@@ -71,3 +71,8 @@ typings/
 
 # Yarn Integrity file
 .yarn-integrity
+#yaml file
+src/main/resources/application.yml
+
+#secure bundle
+src/main/resources/secure-connect.zip

@@ -1,6 +1,6 @@
 package com.demo.catalogservice.service;
 
-import com.demo.catalogservice.repository.GraphQLDataFetcher;
+import com.demo.catalogservice.service.DataFetchers.GraphQLDataFetcher;
 import com.google.common.base.Charsets;
 import com.google.common.io.Resources;
 import graphql.GraphQL;
@@ -9,12 +9,13 @@ import graphql.schema.idl.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.net.URL;
 
-@Component
+@Service
 public class GraphQLProvider {
     private GraphQL graphQL;
     @Autowired
@@ -26,7 +27,7 @@ public class GraphQLProvider {
     }
     @PostConstruct
     public void init() throws IOException {
-        URL url = Resources.getResource("schema.graphqls");
+        URL url = Resources.getResource("schema.graphql");
         String sd1 = Resources.toString(url, Charsets.UTF_8);
         GraphQLSchema graphQLSchema = buildSchema(sd1);
         this.graphQL = GraphQL.newGraphQL(graphQLSchema).build();
