@@ -22,8 +22,13 @@ public class Category {
     private String categoryName;
     @CassandraType(type = CassandraType.Name.TEXT)
     private String parentCategoryId;
-//    @CassandraType(type = CassandraType.Name.LIST , typeArguments = CassandraType.Name.TEXT)
-//    private List<String> childCategoryId;
-//    @CassandraType(type = CassandraType.Name.LIST , typeArguments = CassandraType.Name.TEXT)
-//    private List<String> productsId;
+
+
+
+
+    @CassandraType(type = CassandraType.Name.LIST , typeArguments = CassandraType.Name.TEXT)
+    private List<String> childCategoryId;
+
+    @CassandraType(type = CassandraType.Name.LIST , typeArguments = CassandraType.Name.TEXT)
+    private List<Product> products;
 }

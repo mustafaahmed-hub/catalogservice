@@ -11,35 +11,48 @@ input ProductInput{
     name:String
     price:Float
     imageUrl:String
-    category:CategoryInput
-    description:DescriptionInput
+    category:[String]
+    description:String
 }
-input CategoryInput{
+input CategoryInput {
+    id:ID
+    name:String
     parent:String
     child:[String]
+    products:[ProductInput]
 }
-input DescriptionInput{
+input DescriptionInput {
     id:ID
     description:String
     weight:String
+    name:String
+    price:Float
+    imageUrl:String
+    CategoryId:String
 }
 type Product{
     id:ID
     name:String
     price:Float
     imageUrl:String
-    category:Category
-    description:Description
+    categoryId:[String]
+    descriptionId:String
 }
 
 type Description {
     id:ID
     description:String
     weight:String
+    name:String
+    price:Float
+    imageUrl:String
+    CategoryId:String
 }
 
 type Category {
+    id:ID
+    name:String
     parent:String
     child:[String]
-#    products:[Product]
+    products:[Product]
 }

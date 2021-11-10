@@ -32,8 +32,6 @@ public class Product {
     @Column("description_id")
     @CassandraType(type = CassandraType.Name.TEXT)
     private String descId;
-    @Column("category_id")
-    @CassandraType(type = CassandraType.Name.TEXT)
-    private String categoryId;
-
+    @CassandraType(type = CassandraType.Name.LIST , typeArguments = CassandraType.Name.TEXT)
+    private List<String> categoryId;
 }

@@ -1,6 +1,7 @@
 package com.demo.catalogservice.service;
 
 import com.demo.catalogservice.exception.ProductNotFoundException;
+import com.demo.catalogservice.model.Category;
 import com.demo.catalogservice.model.Product;
 import com.demo.catalogservice.repository.CategoryRepository;
 import com.demo.catalogservice.repository.ProductDescriptionRepository;
@@ -8,6 +9,7 @@ import com.demo.catalogservice.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 @Service
 public class ProductService {
@@ -19,7 +21,17 @@ public class ProductService {
     @Autowired
     CategoryRepository categoryRepository;
 
+
     public void createProduct(Product product) {
+        List<String> categoryId = product.getCategoryId();
+        for(String id : categoryId){
+            Optional<Category> category = categoryRepository.findById(id);
+
+            List<Product> products = category.get().getProducts();
+            products.add(product);
+            category.get().setProducts(products);
+            categoryRepository.save(category.get());
+        }
         productRepository.save(product);
     }
 
