@@ -2,10 +2,31 @@ type Query{
     productById(id:ID):Product
     allProduct:[Product]
 }
+type Mutation{
+    createProduct(product:ProductInput!):Product
+    updateProduct(product:ProductInput!):Product
+}
+input ProductInput{
+    id:ID
+    name:String
+    price:Float
+    imageUrl:String
+    category:CategoryInput
+    description:DescriptionInput
+}
+input CategoryInput{
+    parent:String
+    child:[String]
+}
+input DescriptionInput{
+    id:ID
+    description:String
+    weight:String
+}
 type Product{
     id:ID
     name:String
-    price:String
+    price:Float
     imageUrl:String
     category:Category
     description:Description

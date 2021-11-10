@@ -1,10 +1,12 @@
 package com.demo.catalogservice.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.data.cassandra.repository.config.EnableCassandraRepositories;
 
 import java.io.File;
 
 @ConfigurationProperties(prefix = "datastax.astra")
+//@EnableCassandraRepositories
 public class DataStaxProperties {
     private File secureConnectBundle;
 

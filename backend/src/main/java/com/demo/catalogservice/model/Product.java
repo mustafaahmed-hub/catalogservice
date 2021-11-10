@@ -3,7 +3,10 @@ package com.demo.catalogservice.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.cassandra.core.mapping.PrimaryKey;
+import org.springframework.data.cassandra.core.cql.PrimaryKeyType;
+import org.springframework.data.cassandra.core.mapping.*;
+import org.springframework.data.cassandra.core.mapping.Column;
+import org.springframework.data.cassandra.core.mapping.Table;
 
 import javax.persistence.*;
 import java.util.List;
@@ -15,16 +18,22 @@ import java.util.UUID;
 @NoArgsConstructor
 @Table
 public class Product {
-    @PrimaryKey
-    private UUID id;
+    @Id @PrimaryKeyColumn(name = "product_id",ordinal =0,type = PrimaryKeyType.PARTITIONED)
+    private String id;
+    @Column("product_name")
+    @CassandraType(type = CassandraType.Name.TEXT)
     private String name;
+
+    @CassandraType(type = CassandraType.Name.DOUBLE)
     private double price;
+    @Column("image_url")
+    @CassandraType(type = CassandraType.Name.TEXT)
     private String imageUrl;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    private ProductDescription description;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Category category;
+    @Column("description_id")
+    @CassandraType(type = CassandraType.Name.TEXT)
+    private String descId;
+    @Column("category_id")
+    @CassandraType(type = CassandraType.Name.TEXT)
+    private String categoryId;
 
 }
