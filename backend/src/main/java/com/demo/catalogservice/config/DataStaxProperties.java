@@ -6,7 +6,7 @@ import org.springframework.data.cassandra.repository.config.EnableCassandraRepos
 import java.io.File;
 
 @ConfigurationProperties(prefix = "datastax.astra")
-//@EnableCassandraRepositories
+@EnableCassandraRepositories
 public class DataStaxProperties {
     private File secureConnectBundle;
 

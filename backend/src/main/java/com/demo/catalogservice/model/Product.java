@@ -18,7 +18,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Table
 public class Product {
-    @Id @PrimaryKeyColumn(name = "product_id",ordinal =0,type = PrimaryKeyType.PARTITIONED)
+    @PrimaryKey(value = "product_id")
     private String id;
     @Column("product_name")
     @CassandraType(type = CassandraType.Name.TEXT)

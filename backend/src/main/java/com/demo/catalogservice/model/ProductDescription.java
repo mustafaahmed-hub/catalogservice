@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import java.util.UUID;
 
 @Data
-@Table
+@Table("product_description")
 public class ProductDescription {
     @PrimaryKeyColumn(name = "desc_id",ordinal =0,type = PrimaryKeyType.PARTITIONED)
     private String id;
