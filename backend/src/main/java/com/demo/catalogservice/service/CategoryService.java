@@ -4,6 +4,7 @@ import com.demo.catalogservice.exception.ProductNotFoundException;
 import com.demo.catalogservice.model.Category;
 import com.demo.catalogservice.model.Product;
 import com.demo.catalogservice.repository.CategoryRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+@Slf4j
 @Service
 public class CategoryService {
 
@@ -39,6 +41,17 @@ public class CategoryService {
     }
 
     public Category addNewCategory(Category category) {
+        String parent = category.getParentCategoryId();
+        if(!parent.isEmpty()){
+            Optional<Category> category1 = categoryRepository.findById(parent);
+            if(category1.isEmpty()){
+                log.info("parent category Id is not correct");
+            }else{
+                List<String> children = category1.get().getChildCategoryId();
+                children.add(parent);
+                category1.get().setChildCategoryId(children);
+            }
+        }
         return categoryRepository.save(category);
     }
 
