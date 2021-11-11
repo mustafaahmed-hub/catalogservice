@@ -15,16 +15,13 @@ import java.util.UUID;
 @Data
 @Table
 public class Category {
-    @Id @PrimaryKeyColumn(name = "category_id",ordinal =0,type = PrimaryKeyType.PARTITIONED)
+    @PrimaryKey(value = "category_id")
     private String categoryId;
 
     @CassandraType(type = CassandraType.Name.TEXT)
     private String categoryName;
     @CassandraType(type = CassandraType.Name.TEXT)
     private String parentCategoryId;
-
-
-
 
     @CassandraType(type = CassandraType.Name.LIST , typeArguments = CassandraType.Name.TEXT)
     private List<String> childCategoryId;

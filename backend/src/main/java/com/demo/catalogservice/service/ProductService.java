@@ -1,7 +1,6 @@
 package com.demo.catalogservice.service;
 
 import com.demo.catalogservice.exception.ProductNotFoundException;
-import com.demo.catalogservice.model.Category;
 import com.demo.catalogservice.model.Product;
 import com.demo.catalogservice.repository.CategoryRepository;
 import com.demo.catalogservice.repository.ProductDescriptionRepository;
@@ -24,14 +23,15 @@ public class ProductService {
 
     public void createProduct(Product product) {
         List<String> categoryId = product.getCategoryId();
-        for(String id : categoryId){
-            Optional<Category> category = categoryRepository.findById(id);
-
-            List<Product> products = category.get().getProducts();
-            products.add(product);
-            category.get().setProducts(products);
-            categoryRepository.save(category.get());
-        }
+//        for(String id : categoryId){
+//            Optional<Category> category = categoryRepository.findById(id);
+//            if(category.isPresent()){
+//            List<Product> products = category.get().getProducts();
+//            products.add(product);
+//            category.get().setProducts(products);
+//            categoryRepository.save(category.get());
+//            }
+//        }
         productRepository.save(product);
     }
 
@@ -41,6 +41,10 @@ public class ProductService {
             throw new ProductNotFoundException(exception_msg+" "+id);
         }
         return product.get();
+    }
+    public List<Product> getAllProducts() {
+        List<Product> products = productRepository.findAll();
+        return  products;
     }
 
     public Product updateProductById(String id, Product product) {
@@ -59,4 +63,6 @@ public class ProductService {
         }
         productRepository.delete(product.get());
     }
+
+
 }

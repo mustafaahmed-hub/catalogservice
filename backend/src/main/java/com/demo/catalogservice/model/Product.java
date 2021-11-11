@@ -23,7 +23,6 @@ public class Product {
     @Column("product_name")
     @CassandraType(type = CassandraType.Name.TEXT)
     private String name;
-
     @CassandraType(type = CassandraType.Name.DOUBLE)
     private double price;
     @Column("image_url")
@@ -32,6 +31,7 @@ public class Product {
     @Column("description_id")
     @CassandraType(type = CassandraType.Name.TEXT)
     private String descId;
+    @Column("category_id")
     @CassandraType(type = CassandraType.Name.LIST , typeArguments = CassandraType.Name.TEXT)
     private List<String> categoryId;
 }
