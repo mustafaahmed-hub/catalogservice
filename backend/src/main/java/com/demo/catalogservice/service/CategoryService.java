@@ -1,7 +1,9 @@
 package com.demo.catalogservice.service;
 
+import com.demo.catalogservice.exception.CategoryNotFoundException;
 import com.demo.catalogservice.exception.ProductNotFoundException;
 import com.demo.catalogservice.model.Category;
+import com.demo.catalogservice.model.CategoryProducts;
 import com.demo.catalogservice.model.Product;
 import com.demo.catalogservice.repository.CategoryRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -19,12 +21,12 @@ public class CategoryService {
 
     @Autowired
     CategoryRepository categoryRepository;
-
-    public List<Product> getProductsByCategoryId(String id) {
+    String exception_msg = "Category not found with id - ";
+    public List<CategoryProducts> getProductsByCategoryId(String id) {
         Optional<Category> category = categoryRepository.findById(id);
         if(category.isEmpty()){
-            //throw category not found exception
-            return null;
+            throw new CategoryNotFoundException(exception_msg+id);
+
         }else{
             return category.get().getProducts();
         }
@@ -42,17 +44,21 @@ public class CategoryService {
 
     public Category addNewCategory(Category category) {
         String parent = category.getParentCategoryId();
-        if(!parent.isEmpty()){
-            Optional<Category> category1 = categoryRepository.findById(parent);
-            if(category1.isEmpty()){
+        log.info("parent category is - "+ parent);
+        if(parent!=null){
+
+            Optional<Category> parentCategory = categoryRepository.findById(parent);
+            if(parentCategory.isEmpty()){
                 log.info("parent category Id is not correct");
             }else{
-                List<String> children = category1.get().getChildCategoryId();
-                children.add(parent);
-                category1.get().setChildCategoryId(children);
+                List<String> children = parentCategory.get().getChildCategoryId();
+                children.add(category.getCategoryId());
+                parentCategory.get().setChildCategoryId(children);
             }
         }
+        log.info("before inserting to db");
         return categoryRepository.save(category);
+//        log.info("after inserting to db");
     }
 
     public void deleteCategoryById(String id) {

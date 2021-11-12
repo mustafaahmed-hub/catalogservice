@@ -1,6 +1,7 @@
 package com.demo.catalogservice.controller;
 
 import com.demo.catalogservice.model.Category;
+import com.demo.catalogservice.model.CategoryProducts;
 import com.demo.catalogservice.model.Product;
 import com.demo.catalogservice.service.CategoryService;
 import com.demo.catalogservice.service.GraphQLProvider;
@@ -22,7 +23,7 @@ public class CategoryController {
 
     @GetMapping("/{id}/products")
     public ResponseEntity getProductsByCategoryId(@PathVariable String id){
-        List<Product> res = categoryService.getProductsByCategoryId(id);
+        List<CategoryProducts> res = categoryService.getProductsByCategoryId(id);
         return ResponseEntity.status(HttpStatus.OK).body(res);
     }
 
@@ -32,7 +33,7 @@ public class CategoryController {
         return ResponseEntity.status(HttpStatus.OK).body(res);
     }
 
-    @PostMapping("/category")
+    @PostMapping
     public ResponseEntity addNewCategory(@RequestBody Category category){
         Category res = categoryService.addNewCategory(category);
         return ResponseEntity.status(HttpStatus.OK).body(res);
