@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/products")
 public class ProductController {
     @Autowired
@@ -40,6 +41,7 @@ public class ProductController {
     @GetMapping("/")
     public ResponseEntity getAllProduct(){
         List<Product> products = productservice.getAllProducts();
+//        System.out.println("asdghj");
         return ResponseEntity.status(HttpStatus.OK).body(products);
     }
     //update the product by id

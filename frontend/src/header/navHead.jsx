@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Navbar, Nav, Container, Form, FormControl,Button } from 'react-bootstrap';
 import CategoryDropdown from '../components/categoryDropdown';
-import Flex from '@react-css/flex'
+
 class NavHead extends Component {
     render() {
         return (

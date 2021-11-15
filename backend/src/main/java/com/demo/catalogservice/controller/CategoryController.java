@@ -3,6 +3,7 @@ package com.demo.catalogservice.controller;
 import com.demo.catalogservice.model.Category;
 import com.demo.catalogservice.model.CategoryProducts;
 import com.demo.catalogservice.model.Product;
+import com.demo.catalogservice.repository.CategoryRepository;
 import com.demo.catalogservice.service.CategoryService;
 import com.demo.catalogservice.service.GraphQLProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/category")
 public class CategoryController {
     @Autowired
@@ -21,9 +23,18 @@ public class CategoryController {
     @Autowired
     CategoryService categoryService;
 
+    @Autowired
+    CategoryRepository categoryRepository;
+
     @GetMapping("/{id}/products")
     public ResponseEntity getProductsByCategoryId(@PathVariable String id){
         List<CategoryProducts> res = categoryService.getProductsByCategoryId(id);
+        return ResponseEntity.status(HttpStatus.OK).body(res);
+    }
+
+    @GetMapping("/")
+    public ResponseEntity getAllCategory(){
+        List<Category> res = categoryRepository.findAll(); //TODO shift this in categoryService
         return ResponseEntity.status(HttpStatus.OK).body(res);
     }
 
