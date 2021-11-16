@@ -4,12 +4,11 @@ import axios from "axios";
 import './product.css'
 class Product extends Component
 {
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state={
-            productList: [
-            ]
-
+            productList: [],
+            response:""
         };
     }
     componentDidMount() {
@@ -25,6 +24,16 @@ class Product extends Component
                 this.setState({ productList: res.data });
             })
     }
+    deleteProduct = async (id)=>{
+        // event.preventDefault();
+        await axios.delete("http://localhost:9000/products/" + id)
+            .then((res) => {
+                alert(res.data)
+                this.setState({ response: res.data })
+                    window.location.href = "/"
+            }
+            )
+    };
 
       render() {
          return (
@@ -68,7 +77,7 @@ class Product extends Component
 
                                  </td>
 
-                                 <td><Button variant="danger">Delete</Button></td>
+                                 <td><Button variant="danger" onClick={()=>this.deleteProduct( item.id)}>Delete</Button></td>
                              </tr>
                          )
                      }

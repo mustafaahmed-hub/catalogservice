@@ -2,16 +2,17 @@ import React from "react";
 // import { Button, ButtonGroup } from "react-bootstrap";
 import DropdownMultiselect from "react-multiselect-dropdown-bootstrap";
 import axios from "axios";
+import { Form } from 'react-bootstrap';
 
 class CategoryDropdown extends React.Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state={
             dropdown: [],
+            option:[]
 
-        }
-    }
+    }}
     componentDidMount() {
         this.getAllCategory()
     }
@@ -23,17 +24,18 @@ class CategoryDropdown extends React.Component {
             .then((res) => {
                 this.setState({ dropdown: res.data});
             })
+
+    }
+    assignDropdown(){
+        const dropdown = [...this.state.dropdown]
+        this.state.option = dropdown.map(category=>category.categoryName)
+        console.log(this.state.option)
     }
     render() {
-        const dropdown = [...this.state.dropdown]
-        let option = dropdown.map(category=>category.categoryName)
-        console.log(option)
+        this.assignDropdown()
         return (
-            <DropdownMultiselect
-                options ={[...option]}
-                // options=
-                name="Categories"
-            />
+            <DropdownMultiselect options={this.state.option}/>
+
             );
   }
 }
