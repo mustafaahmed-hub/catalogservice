@@ -2,7 +2,7 @@ import React from "react";
 // import { Button, ButtonGroup } from "react-bootstrap";
 import DropdownMultiselect from "react-multiselect-dropdown-bootstrap";
 import axios from "axios";
-import { Form } from 'react-bootstrap';
+import {Dropdown, Form} from 'react-bootstrap';
 
 class CategoryDropdown extends React.Component {
 
@@ -33,10 +33,20 @@ class CategoryDropdown extends React.Component {
     }
     render() {
         this.assignDropdown()
-        return (
-            <DropdownMultiselect options={this.state.option}/>
+        return(
+        <DropdownMultiselect>
+            {
+                this.state.option.map(item => {
+                return <Dropdown.Item key={item}>{item} </Dropdown.Item>
+            })
+            }
+        </DropdownMultiselect>
+        )
 
-            );
+        // return (
+        //     <DropdownMultiselect options = {this.state.option}/>
+        //
+        //     );
   }
 }
 

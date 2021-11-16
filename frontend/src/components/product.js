@@ -77,7 +77,7 @@ class Product extends Component
 
                                  </td>
 
-                                 <td><Button variant="danger" onClick={()=>this.deleteProduct( item.id)}>Delete</Button></td>
+                                 <td><Button variant="danger" onClick={()=>this.deleteProduct(item.id)}>Delete</Button></td>
                              </tr>
                          )
                      }
