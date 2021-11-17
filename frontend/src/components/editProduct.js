@@ -40,7 +40,7 @@ class EditProduct extends Component {
         console.log(product_id)
         axios.put("http://localhost:9000/products/"+product_id, object)
             .then(() => {
-                alert("ProductList Updated!!!")
+                alert("Product Updated!!!")
                 window.location.href = "/"
             })
             .catch((error)=>{

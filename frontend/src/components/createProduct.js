@@ -37,6 +37,7 @@ class CreateProduct extends Component {
 
          axios.post("http://localhost:9000/products/", object)
             .then(() => {
+                alert("Product Created!!")
                 window.location.href = "/"
             })
             .catch((error)=>{

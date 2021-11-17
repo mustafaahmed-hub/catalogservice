@@ -46,5 +46,4 @@ class NavHead extends Component {
         );
     }
 }
-
 export default NavHead;

@@ -81,7 +81,7 @@ class ProductList extends Component
                                  <td><img src={item.imageUrl} className="img-responsive"/></td>
                                  <td>{item.id}</td>
                                  <td>{item.name}</td>
-                                 <td>{item.price}</td>
+                                 <td>Rs. {item.price}</td>
                                  <td>{item.categoryId[0]}</td>
                                  <td>
                                      <Button variant="secondary"
