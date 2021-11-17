@@ -57,11 +57,11 @@ class EditProduct extends Component {
             .then((res) => {
                 console.log(res.data);
                 this.setState({ productList: res.data });
-                console.log(this.state.productList)
-                document.getElementById("formGridProductID").value = this.state.productList.id
-                document.getElementById("formGridProductName").value = this.state.productList.name
-                document.getElementById("formGridPrice").value = this.state.productList.price
-                document.getElementById("formGridProductCategory").value = this.state.productList.categoryId[0]
+                console.log(this.state.productList[0].id)
+                document.getElementById("formGridProductID").value = this.state.productList[0].id
+                document.getElementById("formGridProductName").value = this.state.productList[0].name
+                document.getElementById("formGridPrice").value = this.state.productList[0].price
+                document.getElementById("formGridProductCategory").value = this.state.productList[0].categoryId[0]
             })
     }
     render() {
