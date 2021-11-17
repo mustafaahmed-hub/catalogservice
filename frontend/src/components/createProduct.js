@@ -15,6 +15,7 @@ class CreateProduct extends Component {
             descId:props.descId,
             categoryId:props.categoryId
         };
+        this.createProduct = this.createProduct .bind(this)
     }
      createProduct() {
         let id = document.getElementById("formGridProductID").value
@@ -23,9 +24,9 @@ class CreateProduct extends Component {
         let price = document.getElementById("formGridPrice").value
         let categoryId = document.getElementById("formGridProductCategory").value
 
-        // this.setState({
-        //     id: id, name: name, price: price, category: category
-        // })
+        this.setState({
+            id: id, name: name, price: price, category: categoryId
+        })
 
         let object = {
             id: id,

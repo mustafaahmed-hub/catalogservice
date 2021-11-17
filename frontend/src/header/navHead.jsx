@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Navbar, Nav, Container, Form, FormControl,Button } from 'react-bootstrap';
 import CategoryDropdown from '../components/categoryDropdown';
-
+import AnimatedMulti from "../components/DropdownOptions";
 class NavHead extends Component {
     render() {
         return (
@@ -26,7 +26,7 @@ class NavHead extends Component {
                         </Form>
 
                         {/* <Nav.Link href="#action2"></Nav.Link> */}
-                        <CategoryDropdown></CategoryDropdown>
+                        <AnimatedMulti></AnimatedMulti>
                         {/* <NavDropdown title="Select Category" id="navbarScrollingDropdown">
                         <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
                         <NavDropdown.Item href="#action4">Another action</NavDropdown.Item>

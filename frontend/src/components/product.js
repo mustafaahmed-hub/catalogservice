@@ -72,7 +72,7 @@ class Product extends Component
 
                                  <td>
                                      <Button variant="secondary"
-                                             onClick={() => window.open(window.location.href + "editproduct", "_blank")}>Edit</Button>
+                                             onClick={() => window.open(window.location.href + "editproduct?"+item.id, "_blank")}>Edit</Button>
                                      {/* <Button variant="danger" onClick={this.props.deleteItem.bind(this, this.props.name)}>Delete</Button> */}
 
                                  </td>
