@@ -30,7 +30,7 @@ export default function AnimatedMulti() {
                 (res.data.map(item =>{
                     dropdownOptions.push({'value': item.categoryName, 'label': item.categoryName})
                 }))
-                console.log(res.data)
+                // console.log(res.data)
         }
         )
     return (

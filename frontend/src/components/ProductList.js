@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Button, Row, Col, Container, Table } from 'react-bootstrap';
 import axios from "axios";
 import './product.css'
-class Product extends Component
+class ProductList extends Component
 {
     constructor(props){
         super(props);
@@ -16,13 +16,27 @@ class Product extends Component
     }
 
     getAllProducts(){
-        axios
-            .get("http://localhost:9000/products/"
-            )
-            .then((res) => {
-                       console.log(res.data);
-                this.setState({ productList: res.data });
-            })
+        let url = window.location.href
+        let searchText = url.split('?')[1]
+        console.log(searchText)
+        if(searchText===undefined) {
+            axios
+                .get("http://localhost:9000/products/"
+                )
+                .then((res) => {
+                    console.log(res.data);
+                    this.setState({productList: res.data});
+                })
+        }
+        else{
+            axios
+                .get("http://localhost:9000/products/"+searchText
+                )
+                .then((res) => {
+                    console.log(res.data);
+                    this.setState({productList: res.data});
+                })
+        }
     }
     deleteProduct = async (id)=>{
         // event.preventDefault();
@@ -69,19 +83,16 @@ class Product extends Component
                                  <td>{item.name}</td>
                                  <td>{item.price}</td>
                                  <td>{item.categoryId[0]}</td>
-
                                  <td>
                                      <Button variant="secondary"
-                                             onClick={() => window.open(window.location.href + "editproduct?"+item.id, "_blank")}>Edit</Button>
+                                             onClick={() => window.open("editproduct?"+item.id, "_blank")}>Edit</Button>
                                      {/* <Button variant="danger" onClick={this.props.deleteItem.bind(this, this.props.name)}>Delete</Button> */}
 
                                  </td>
-
                                  <td><Button variant="danger" onClick={()=>this.deleteProduct(item.id)}>Delete</Button></td>
                              </tr>
                          )
                      }
-
                      </tbody>
                  </Table>
              </Container>
@@ -92,4 +103,4 @@ class Product extends Component
 
 
 
-export default Product;
+export default ProductList;

@@ -60,13 +60,13 @@ class CreateProduct extends Component {
                     <Form role="form" onSubmit={this.createProduct}>
                         <Row className="mb-3">
                             <Form.Group as={Col} controlId="formGridProductID" >
-                                <Form.Label>Product ID</Form.Label>
-                                <Form.Control type="text" placeholder="Enter Product ID" />
+                                <Form.Label>ProductList ID</Form.Label>
+                                <Form.Control type="text" placeholder="Enter ProductList ID" />
                             </Form.Group>
 
                             <Form.Group as={Col} controlId="formGridProductName">
-                                <Form.Label>Product Name</Form.Label>
-                                <Form.Control type="text" placeholder="Product Name"/>
+                                <Form.Label>ProductList Name</Form.Label>
+                                <Form.Control type="text" placeholder="ProductList Name"/>
                             </Form.Group>
                         </Row>
 
@@ -77,7 +77,7 @@ class CreateProduct extends Component {
                             </Form.Group>
 
                             <Form.Group as={Col} controlId="formGridProductCategory">
-                                <Form.Label>Product Category</Form.Label>
+                                <Form.Label>ProductList Category</Form.Label>
                                 <Form.Select defaultValue="Choose..." >
                                     <option key="1">Choose...</option>
                                     <option key="2">electronics</option>

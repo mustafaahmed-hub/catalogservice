@@ -13,7 +13,8 @@ class EditProduct extends Component {
             price:props.price,
             imageUrl:props.imageUrl,
             descId:props.descId,
-            categoryId:props.categoryId
+            categoryId:props.categoryId,
+            productList: []
         };
         this.editProduct = this.editProduct .bind(this)
     }
@@ -39,16 +40,32 @@ class EditProduct extends Component {
         console.log(product_id)
         axios.put("http://localhost:9000/products/"+product_id, object)
             .then(() => {
-                alert("Product Updated!!!")
+                alert("ProductList Updated!!!")
                 window.location.href = "/"
             })
             .catch((error)=>{
                 alert(error)
             });
     }
-
+    componentDidMount() {
+        this.prepopulated()
+    }
+    prepopulated(){
+        let url = window.location.href;
+        let product_id = url.split('?')[1]
+        axios.get("http://localhost:9000/products/"+product_id)
+            .then((res) => {
+                console.log(res.data);
+                this.setState({ productList: res.data });
+                console.log(this.state.productList)
+                document.getElementById("formGridProductID").value = this.state.productList.id
+                document.getElementById("formGridProductName").value = this.state.productList.name
+                document.getElementById("formGridPrice").value = this.state.productList.price
+                document.getElementById("formGridProductCategory").value = this.state.productList.categoryId[0]
+            })
+    }
     render() {
-
+    // this.prepopulated()
         return (
             <div>
                 <Container>
@@ -64,13 +81,13 @@ class EditProduct extends Component {
                     <Form role="form" onSubmit={this.editProduct}>
                         <Row className="mb-3">
                             <Form.Group as={Col} controlId="formGridProductID" >
-                                <Form.Label>Product ID</Form.Label>
-                                <Form.Control type="text" placeholder="Enter Product ID" />
+                                <Form.Label>ProductList ID</Form.Label>
+                                <Form.Control type="text" placeholder="Enter ProductList ID" readonly="anyBooleanPropertyFromComponent"/>
                             </Form.Group>
 
                             <Form.Group as={Col} controlId="formGridProductName">
-                                <Form.Label>Product Name</Form.Label>
-                                <Form.Control type="text" placeholder="Product Name"/>
+                                <Form.Label>ProductList Name</Form.Label>
+                                <Form.Control type="text" placeholder="ProductList Name"/>
                             </Form.Group>
                         </Row>
 
@@ -81,7 +98,7 @@ class EditProduct extends Component {
                             </Form.Group>
 
                             <Form.Group as={Col} controlId="formGridProductCategory">
-                                <Form.Label>Product Category</Form.Label>
+                                <Form.Label>ProductList Category</Form.Label>
                                 <Form.Select defaultValue="Choose..." >
                                     <option key="1">Choose...</option>
                                     <option key="2">electronics</option>

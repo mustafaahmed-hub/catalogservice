@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -35,13 +36,15 @@ public class ProductController {
     @GetMapping("/{id}")
     public ResponseEntity getProductById(@PathVariable String id){
         Product product = productservice.getProductById(id);
-        return ResponseEntity.status(HttpStatus.OK).body(product);
+        List<Product> list = new ArrayList<>();
+        list.add(product);
+        return ResponseEntity.status(HttpStatus.OK).body(list);
     }
     //get all products
     @GetMapping("/")
     public ResponseEntity getAllProduct(){
         List<Product> products = productservice.getAllProducts();
-//        System.out.println("asdghj");
+
         return ResponseEntity.status(HttpStatus.OK).body(products);
     }
     //update the product by id
