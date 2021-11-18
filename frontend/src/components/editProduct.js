@@ -16,7 +16,7 @@ class EditProduct extends Component {
             categoryId:props.categoryId,
             productList: []
         };
-        this.editProduct = this.editProduct .bind(this)
+        this.editProduct = this.editProduct.bind(this)
     }
     editProduct() {
         let id = document.getElementById("formGridProductID").value

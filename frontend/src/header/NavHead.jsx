@@ -36,7 +36,7 @@ class NavHead extends Component {
                         <AnimatedMulti></AnimatedMulti>
 
 
-                        <Nav.Link href="#action1">Past Orders</Nav.Link>
+                        {/* <Nav.Link href="#action1">Past Orders</Nav.Link> */}
 
                     </Nav>
                     
