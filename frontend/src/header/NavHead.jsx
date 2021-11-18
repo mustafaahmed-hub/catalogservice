@@ -10,14 +10,15 @@ class NavHead extends Component {
     }
 
     render() {
+        
         return (
-            <Navbar bg="light" expand="lg">
-                <Container fluid>
+            <Navbar bg="dark" variant="dark" expand="lg" >
+                <Container >
                     <Navbar.Brand href="/">Catalog Service</Navbar.Brand>
                     <Navbar.Toggle aria-controls="navbarScroll" />
                     <Navbar.Collapse id="navbarScroll">
                     <Nav
-                        className="me-auto my-2 my-lg-0"
+                        className="me-auto my-2 my-lg-0 mx-auto gap-5"
                         style={{ maxHeight: '100px' }}
                         navbarScroll
                         >
@@ -31,7 +32,7 @@ class NavHead extends Component {
                             id="search"
                             />
 
-                            <Button variant="outline-success" onClick={this.search}>Search</Button>
+                            <Button variant="outline-info" onClick={this.search}>Search</Button>
                         </Form>
                         <AnimatedMulti></AnimatedMulti>
 
@@ -46,5 +47,4 @@ class NavHead extends Component {
         );
     }
 }
-
 export default NavHead;
