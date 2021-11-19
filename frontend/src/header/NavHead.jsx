@@ -12,7 +12,7 @@ class NavHead extends Component {
     render() {
         
         return (
-            <Navbar bg="dark" variant="dark" expand="lg" >
+            <Navbar bg="light" expand="lg" >
                 <Container >
                     <Navbar.Brand href="/">Catalog Service</Navbar.Brand>
                     <Navbar.Toggle aria-controls="navbarScroll" />
