@@ -1,0 +1,11 @@
+.product-header{
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+}
+.img-responsive{
+    padding: 2px;
+    margin: fill;
+    height: 100px;
+    width: 100px;
+}

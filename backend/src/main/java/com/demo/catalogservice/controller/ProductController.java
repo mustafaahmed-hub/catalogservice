@@ -10,9 +10,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/products")
 public class ProductController {
     @Autowired
@@ -35,7 +37,9 @@ public class ProductController {
     @GetMapping("/{id}")
     public ResponseEntity getProductById(@PathVariable String id){
         Product product = productservice.getProductById(id);
-        return ResponseEntity.status(HttpStatus.OK).body(product);
+        List<Product> list = new ArrayList<>();
+        list.add(product);
+        return ResponseEntity.status(HttpStatus.OK).body(list);
     }
     //get product by name
     @GetMapping("name/{name}")
@@ -47,6 +51,7 @@ public class ProductController {
     @GetMapping("/")
     public ResponseEntity getAllProduct(){
         List<Product> products = productservice.getAllProducts();
+
         return ResponseEntity.status(HttpStatus.OK).body(products);
     }
     //update the product by id
