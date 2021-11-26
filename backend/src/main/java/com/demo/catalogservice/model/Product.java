@@ -16,12 +16,13 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table
+@Table(value = "test_product")
 public class Product {
-    @PrimaryKey(value = "product_id")
+    @PrimaryKeyColumn(name = "category_id" ,type = PrimaryKeyType.PARTITIONED)
+    private String categoryId;
+    @PrimaryKeyColumn(value = "product_id" , type =PrimaryKeyType.CLUSTERED)
     private String id;
-    @Column("product_name")
-    @CassandraType(type = CassandraType.Name.TEXT)
+    @PrimaryKeyColumn(name = "product_name" ,type = PrimaryKeyType.CLUSTERED)
     private String name;
     @CassandraType(type = CassandraType.Name.DOUBLE)
     private double price;
@@ -31,7 +32,7 @@ public class Product {
     @Column("description_id")
     @CassandraType(type = CassandraType.Name.TEXT)
     private String descId;
-    @Column("category_id")
-    @CassandraType(type = CassandraType.Name.LIST , typeArguments = CassandraType.Name.TEXT)
-    private List<String> categoryId;
+//    @Column("category_id")
+//    @CassandraType(type = CassandraType.Name.LIST , typeArguments = CassandraType.Name.TEXT)
+//    private List<String> categoryId;
 }

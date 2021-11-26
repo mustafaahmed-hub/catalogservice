@@ -1,10 +1,10 @@
 package com.demo.catalogservice.controller;
 
 import com.demo.catalogservice.model.Category;
-import com.demo.catalogservice.model.CategoryProducts;
-import com.demo.catalogservice.repository.CategoryRepository;
+import com.demo.catalogservice.model.Product;
 import com.demo.catalogservice.service.CategoryService;
 import com.demo.catalogservice.service.GraphQLProvider;
+import com.demo.catalogservice.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,11 +22,17 @@ public class CategoryController {
     CategoryService categoryService;
 
     @Autowired
+    ProductService productService;
+
+
+    @Autowired
     CategoryRepository categoryRepository;
+
 
     @GetMapping("/{id}/products")
     public ResponseEntity getProductsByCategoryId(@PathVariable String id){
-        List<CategoryProducts> res = categoryService.getProductsByCategoryId(id);
+//        List<CategoryProducts> res = categoryService.getProductsByCategoryId(id);
+        List<Product> res = productService.getProductByCategoryId(id);
         return ResponseEntity.status(HttpStatus.OK).body(res);
     }
 

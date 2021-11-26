@@ -1,5 +1,6 @@
 package com.demo.catalogservice.service;
 
+
 import com.demo.catalogservice.exception.CategoryNotFoundException;
 import com.demo.catalogservice.model.Category;
 import com.demo.catalogservice.model.CategoryProducts;
@@ -8,10 +9,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
 
 @Slf4j
 @Service
@@ -20,15 +24,7 @@ public class CategoryService {
     @Autowired
     CategoryRepository categoryRepository;
     String exception_msg = "Category not found with id - ";
-    public List<CategoryProducts> getProductsByCategoryId(String id) {
-        Optional<Category> category = categoryRepository.findById(id);
-        if(category.isEmpty()){
-            throw new CategoryNotFoundException(exception_msg+id);
 
-        }else{
-            return category.get().getProducts();
-        }
-    }
 
     public Category fetchByCategoryId(String id) {
         Optional<Category> category = categoryRepository.findById(id);

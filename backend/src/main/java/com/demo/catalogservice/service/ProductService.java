@@ -1,17 +1,19 @@
 package com.demo.catalogservice.service;
 
+import com.demo.catalogservice.config.RestTempCallConfig;
+import com.demo.catalogservice.dto.ProductDescDto;
+import com.demo.catalogservice.dto.ShipNodeItemDto;
 import com.demo.catalogservice.exception.ProductNotFoundException;
-import com.demo.catalogservice.model.Category;
-import com.demo.catalogservice.model.CategoryProducts;
 import com.demo.catalogservice.model.Product;
+import com.demo.catalogservice.model.ProductDescription;
 import com.demo.catalogservice.repository.CategoryRepository;
 import com.demo.catalogservice.repository.ProductDescriptionRepository;
 import com.demo.catalogservice.repository.ProductRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 @Slf4j
@@ -24,44 +26,48 @@ public class ProductService {
     ProductDescriptionRepository productDescriptionRepository;
     @Autowired
     CategoryRepository categoryRepository;
+    @Autowired
+    RestTemplate restTemplate;
+    @Autowired
+    RestTempCallConfig config;
 
 
     public void createProduct(Product product) {
-        List<String> categoryId = product.getCategoryId();
-        for (String id : categoryId) {
-            Optional<Category> category = categoryRepository.findById(id);
-            if (category.isPresent()) {
-                List<CategoryProducts> products = category.get().getProducts();
-                if (products==null) {
-                    log.info("inside the null product list block");
-                    List<CategoryProducts> newProducts = new ArrayList<>();
-                    CategoryProducts categoryProduct = new CategoryProducts();
-                    categoryProduct.setId(product.getId());
-                    categoryProduct.setCategoryId(product.getCategoryId());
-                    categoryProduct.setDescId(product.getDescId());
-                    categoryProduct.setPrice(product.getPrice());
-                    categoryProduct.setName(product.getName());
-                    categoryProduct.setImageUrl(product.getImageUrl());
-                    newProducts.add(categoryProduct);
-                    category.get().setProducts(newProducts);
-                    categoryRepository.save(category.get());
-
-                } else {
-                    log.info("inside block with existing product list values");
-                    CategoryProducts categoryProduct = new CategoryProducts();
-                    categoryProduct.setId(product.getId());
-                    categoryProduct.setCategoryId(product.getCategoryId());
-                    categoryProduct.setDescId(product.getDescId());
-                    categoryProduct.setPrice(product.getPrice());
-                    categoryProduct.setName(product.getName());
-                    categoryProduct.setImageUrl(product.getImageUrl());
-
-                    products.add(categoryProduct);
-                    category.get().setProducts(products);
-                    categoryRepository.save(category.get());
-                }
-            }
-        }
+        String categoryId = product.getCategoryId();
+//        for (String id : categoryId) {
+//            Optional<Category> category = categoryRepository.findById(id);
+//            if (category.isPresent()) {
+////                List<CategoryProducts> products = category.get().getProducts();
+//                if (products==null) {
+//                    log.info("inside the null product list block");
+//                    List<CategoryProducts> newProducts = new ArrayList<>();
+//                    CategoryProducts categoryProduct = new CategoryProducts();
+//                    categoryProduct.setId(product.getId());
+////                    categoryProduct.setCategoryId(product.getCategoryId());
+//                    categoryProduct.setDescId(product.getDescId());
+//                    categoryProduct.setPrice(product.getPrice());
+//                    categoryProduct.setName(product.getName());
+//                    categoryProduct.setImageUrl(product.getImageUrl());
+//                    newProducts.add(categoryProduct);
+////                    category.get().setProducts(newProducts);
+//                    categoryRepository.save(category.get());
+//
+//                } else {
+//                    log.info("inside block with existing product list values");
+//                    CategoryProducts categoryProduct = new CategoryProducts();
+//                    categoryProduct.setId(product.getId());
+//                    categoryProduct.setCategoryId(product.getCategoryId());
+//                    categoryProduct.setDescId(product.getDescId());
+//                    categoryProduct.setPrice(product.getPrice());
+//                    categoryProduct.setName(product.getName());
+//                    categoryProduct.setImageUrl(product.getImageUrl());
+//
+//                    products.add(categoryProduct);
+//                    category.get().setProducts(products);
+//                    categoryRepository.save(category.get());
+//                }
+//            }
+//        }
         productRepository.save(product);
     }
 
@@ -96,4 +102,28 @@ public class ProductService {
     }
 
 
+    public Product getProductByName(String name) {
+        Product product = productRepository.findByName(name);
+        return product;
+    }
+
+    public List<Product> getProductByCategoryId(String id) {
+        List<Product> products = productRepository.findByCategoryId(id);
+        return products;
+    }
+
+    public ProductDescDto getProductDescription(String pid, String id) {
+        ShipNodeItemDto shipNodeItemDto = restTemplate.getForObject(config.getInventoryService()+"/"+pid, ShipNodeItemDto.class);
+        Optional<ProductDescription> tmp = productDescriptionRepository.findById(id);
+        ProductDescription productDescription = tmp.get();
+        ProductDescDto productDescDto = new ProductDescDto();
+        productDescDto.setProductAvailability(shipNodeItemDto.getQuantityAvailable());
+        productDescDto.setProductDescription(productDescription.getDescription());
+        productDescDto.setProductId(productDescription.getId());
+        productDescDto.setProductPrice(productDescription.getPrice());
+        productDescDto.setProductName(productDescription.getName());
+        productDescDto.setProductWeight(productDescription.getWeight());
+        return productDescDto;
+
+    }
 }
