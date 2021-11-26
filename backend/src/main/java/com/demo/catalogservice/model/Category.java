@@ -29,6 +29,6 @@ public class Category {
     @Column("child_category_id")
     private List<String> childCategoryId;
 
-    @Column
-    private List<CategoryProducts> products;
+//    @Column
+//    private List<CategoryProducts> products;
 }

@@ -10,7 +10,7 @@ import java.util.UUID;
 @Data
 @Table("product_description")
 public class ProductDescription {
-    @PrimaryKeyColumn(name = "desc_id",ordinal =0,type = PrimaryKeyType.PARTITIONED)
+    @PrimaryKey(value = "desc_id")
     private String id;
     @CassandraType(type = CassandraType.Name.TEXT)
     private String description;
@@ -27,4 +27,14 @@ public class ProductDescription {
     @Column("category_id")
     @CassandraType(type = CassandraType.Name.TEXT)
     private String categoryId;
+    @Column("length")
+    @CassandraType(type = CassandraType.Name.DOUBLE)
+    private Double length;
+    @Column("breadth")
+    @CassandraType(type = CassandraType.Name.DOUBLE)
+    private Double breadth;
+    @Column("height")
+    @CassandraType(type = CassandraType.Name.DOUBLE)
+    private Double height;
+
 }

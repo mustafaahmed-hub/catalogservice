@@ -1,5 +1,6 @@
 package com.demo.catalogservice.controller;
 
+import com.demo.catalogservice.dto.ProductDescDto;
 import com.demo.catalogservice.model.Product;
 import com.demo.catalogservice.service.GraphQLProvider;
 import com.demo.catalogservice.service.ProductService;
@@ -36,6 +37,12 @@ public class ProductController {
         Product product = productservice.getProductById(id);
         return ResponseEntity.status(HttpStatus.OK).body(product);
     }
+    //get product by name
+    @GetMapping("name/{name}")
+    public ResponseEntity getProductByName(@PathVariable String name){
+        Product product = productservice.getProductByName(name);
+        return ResponseEntity.status(HttpStatus.OK).body(product);
+    }
     //get all products
     @GetMapping("/")
     public ResponseEntity getAllProduct(){
@@ -53,6 +60,12 @@ public class ProductController {
     public ResponseEntity deleteProductById(@PathVariable String id){
         productservice.deleteProductById(id);
         return ResponseEntity.status(HttpStatus.OK).body("Product deleted");
+    }
+    //get product description
+    @GetMapping("description/{pid}/{id}")
+    public ResponseEntity getProductDescription(@PathVariable String pid,@PathVariable String id){
+        ProductDescDto productDescDto = productservice.getProductDescription(pid,id);
+        return ResponseEntity.status(HttpStatus.OK).body(productDescDto);
     }
 
 
