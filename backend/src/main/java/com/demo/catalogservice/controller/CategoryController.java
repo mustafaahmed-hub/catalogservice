@@ -2,6 +2,7 @@ package com.demo.catalogservice.controller;
 
 import com.demo.catalogservice.model.Category;
 import com.demo.catalogservice.model.Product;
+import com.demo.catalogservice.repository.CategoryRepository;
 import com.demo.catalogservice.service.CategoryService;
 import com.demo.catalogservice.service.GraphQLProvider;
 import com.demo.catalogservice.service.ProductService;

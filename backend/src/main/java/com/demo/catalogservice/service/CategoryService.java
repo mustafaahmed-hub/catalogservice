@@ -3,7 +3,6 @@ package com.demo.catalogservice.service;
 
 import com.demo.catalogservice.exception.CategoryNotFoundException;
 import com.demo.catalogservice.model.Category;
-import com.demo.catalogservice.model.CategoryProducts;
 import com.demo.catalogservice.repository.CategoryRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

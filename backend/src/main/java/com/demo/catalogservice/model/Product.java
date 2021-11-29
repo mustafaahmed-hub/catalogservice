@@ -24,15 +24,12 @@ public class Product {
     private String id;
     @PrimaryKeyColumn(name = "product_name" ,type = PrimaryKeyType.CLUSTERED)
     private String name;
+    @PrimaryKeyColumn(type = PrimaryKeyType.CLUSTERED)
     @CassandraType(type = CassandraType.Name.DOUBLE)
     private double price;
     @Column("image_url")
     @CassandraType(type = CassandraType.Name.TEXT)
     private String imageUrl;
-    @Column("description_id")
-    @CassandraType(type = CassandraType.Name.TEXT)
-    private String descId;
-//    @Column("category_id")
-//    @CassandraType(type = CassandraType.Name.LIST , typeArguments = CassandraType.Name.TEXT)
-//    private List<String> categoryId;
+
+
 }
