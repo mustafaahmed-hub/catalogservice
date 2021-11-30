@@ -82,12 +82,18 @@ class ProductList extends Component
                                  <td>{item.id}</td>
                                  <td>{item.name}</td>
                                  <td>Rs. {item.price}</td>
-                                 <td>{item.categoryId[0]}</td>
+                                 <td>{item.categoryId}</td>
                                  <td>
                                      <Button variant="secondary"
                                              onClick={() => window.open("editproduct?"+item.id, "_blank")}>Edit</Button>
                                      {/* <Button variant="danger" onClick={this.props.deleteItem.bind(this, this.props.name)}>Delete</Button> */}
 
+                                 </td>
+                                 <td>
+                                     <Button varient = "secondary" onClick = {()=>window.open("productdesc?"+item.id,"_blank")}>
+                                         
+                                         Details
+                                     </Button>
                                  </td>
                                  <td><Button variant="danger" onClick={()=>this.deleteProduct(item.id)}>Delete</Button></td>
                              </tr>

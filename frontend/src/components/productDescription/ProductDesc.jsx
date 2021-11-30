@@ -1,4 +1,5 @@
 import React, { Component, lazy, Suspense } from "react";
+import axios from "axios";
 import { ReactComponent as IconStarFill } from "bootstrap-icons/icons/star-fill.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -9,6 +10,7 @@ import {
   faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { data } from "../../data";
+import { NavItem } from "react-bootstrap";
 const CardFeaturedProduct = lazy(() =>
   import("../../components/card/CardFeaturedProduct")
 );
@@ -24,11 +26,39 @@ const ShippingReturns = lazy(() =>
   import("../../components/others/ShippingReturns")
 );
 const SizeChart = lazy(() => import("../../components/others/SizeChart"));
+let itemDetail;
 class ProductDetailView extends Component {
+  
   constructor(props) {
-    super();
-    this.state = {};
+    super(props);
+    this.state = {
+      productId:props.productId,
+      productName: props.productName,
+      productPrice:props.productPrice,
+      imageUrl:props.imageUrl,
+      productDescription:props.productDescription,
+      categoryId:props.categoryId,
+      productAvailability:props.productAvailability
+      
+  };
+    
   }
+  prepopulated(){
+    let url = window.location.href;
+    let product_id = url.split('?')[1]
+    axios.get("http://localhost:9000/products/description/"+product_id)
+        .then((res) => {
+            console.log(res.data);
+            var description = res.data;
+            // this.setState({itemDetail: res.data});
+            this.setState(description);
+            console.log(description);
+        })
+}
+componentDidMount(){
+  this.prepopulated();
+  
+}
   render() {
     return (
         <Suspense fallback={<div>Loading...</div>}>
@@ -38,40 +68,26 @@ class ProductDetailView extends Component {
             <div className="row mb-3">
               <div className="col-md-5 text-center">
                 <img
-                  src="../../images/products/tshirt_red_480x400.webp"
+                  src= {this.state.imageUrl}
                   className="img-fluid mb-3"
                   alt=""
-                />
-                <img
-                  src="../../images/products/tshirt_grey_480x400.webp"
-                  className="border border-secondary mr-2" width="75"
-                  alt="..."
-                />
-                <img
-                  src="../../images/products/tshirt_black_480x400.webp"
-                  className="border border-secondary mr-2" width="75"
-                  alt="..."
-                />
-                <img
-                  src="../../images/products/tshirt_green_480x400.webp"
-                  className="border border-secondary mr-2" width="75"
-                  alt="..."
                 />
               </div>
               <div className="col-md-7">
                 <h1 className="h5 d-inline mr-2">
-                  Great product name goes here
+                  {this.state.productName}
+                  {console.log(this.state.productName)}
                 </h1>
 
 
                 <dl className="row small mb-3">
-                  <dt className="col-sm-3">Availability</dt> <dd className="col-sm-9">In stock</dd>
+                  <dt className="col-sm-3">Availability</dt> <dd className="col-sm-9">In stock -Left - {this.state.productAvailability}</dd>
                   <dt className="col-sm-3">Sold by</dt> <dd className="col-sm-9">Authorised Store</dd>
 
                 </dl>
 
                 <div className="mb-3">
-                  <span className="font-weight-bold h5 mr-2">$1900</span>
+                  <span className="font-weight-bold h5 mr-2">Rs - {this.state.productPrice}</span>
                 </div>
 
                 <div className="mb-3">
@@ -111,9 +127,11 @@ class ProductDetailView extends Component {
                     Product Highlights
                   </p>
                   <ul className="small">
-                    <li>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    </li>
+                  {function desc(){
+                    const highlight = this.state.productDescription;
+                    console.log(highlight);
+                    highlight.split('.').map(val=>
+                      <li>val</li>)}}
                     <li>Etiam ullamcorper nibh eget faucibus dictum.</li>
                     <li>Cras consequat felis ut vulputate porttitor.</li>
                   </ul>
