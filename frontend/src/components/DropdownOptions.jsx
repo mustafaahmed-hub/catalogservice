@@ -21,14 +21,14 @@ export default function AnimatedMulti() {
 
     let dropdownOptions = []
     axios
-        .get("http://localhost:9000/category/"
+        .get("http://localhost:9000/category/name"
         )
         .then((res) => {
             // dropdownOptions.push({
             //     'value':res.data.categoryName, 'label': res.data.categoryName
             // })
                 (res.data.map(item =>{
-                    dropdownOptions.push({'value': item.categoryName, 'label': item.categoryName})
+                    dropdownOptions.push({'value': item, 'label': item})
                 }))
                 // console.log(res.data)
         }

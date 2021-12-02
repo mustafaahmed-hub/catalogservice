@@ -1,16 +1,12 @@
-import React, { Component, lazy, Suspense } from "react";
+import React, { Component, lazy, Suspense, useState } from "react";
 import axios from "axios";
-import { ReactComponent as IconStarFill } from "bootstrap-icons/icons/star-fill.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faCartPlus,
-  faHeart,
   faShoppingCart,
   faMinus,
   faPlus,
 } from "@fortawesome/free-solid-svg-icons";
-import { data } from "../../data";
-import { NavItem } from "react-bootstrap";
+import { Container, NavItem, Row } from "react-bootstrap";
 const CardFeaturedProduct = lazy(() =>
   import("../../components/card/CardFeaturedProduct")
 );
@@ -26,7 +22,8 @@ const ShippingReturns = lazy(() =>
   import("../../components/others/ShippingReturns")
 );
 const SizeChart = lazy(() => import("../../components/others/SizeChart"));
-let itemDetail;
+// let itemDetail;
+// var value=0;
 class ProductDetailView extends Component {
   
   constructor(props) {
@@ -38,8 +35,9 @@ class ProductDetailView extends Component {
       imageUrl:props.imageUrl,
       productDescription:props.productDescription,
       categoryId:props.categoryId,
-      productAvailability:props.productAvailability
-      
+      productAvailability:props.productAvailability,
+      value:0
+     
   };
     
   }
@@ -48,19 +46,46 @@ class ProductDetailView extends Component {
     let product_id = url.split('?')[1]
     axios.get("http://localhost:9000/products/description/"+product_id)
         .then((res) => {
-            console.log(res.data);
+            // console.log(res.data);
             var description = res.data;
             // this.setState({itemDetail: res.data});
             this.setState(description);
-            console.log(description);
+            // console.log(description);
         })
 }
 componentDidMount(){
   this.prepopulated();
   
 }
+
+doDecrement() {
+  if(this.state.value) {
+    this.setState({
+      value: this.state.value - 1,
+      message: null
+    });
+  } else {
+    this.setState({
+      message: "Can't decrement. Since 0 is the min value"
+    });
+  }
+}
+doIncrement(){
+  if(this.state.value < 10) {
+    this.setState({
+      value:this.state.value + 1,
+      message: null
+    });
+  } else {
+    this.setState({
+      message: "Can't increment. Since 10 is the max value"
+    });
+  }
+}
+
   render() {
     return (
+      <Container>
         <Suspense fallback={<div>Loading...</div>}>
       <div className="container-fluid mt-3">
         <div className="row">
@@ -92,19 +117,23 @@ componentDidMount(){
 
                 <div className="mb-3">
                   <div className="d-inline float-left mr-2">
-                    <div className="input-group input-group-sm mw-140">
+                    <div className="input-group input-group-sm mw-140" id="increment-component">
                       <button
+                        onClick={this.doDecrement}
                         className="btn btn-primary text-white"
                         type="button"
                       >
                         <FontAwesomeIcon icon={faMinus} />
                       </button>
+                      <Row className="g-2">
                       <input
                         type="text"
                         className="form-control"
                         defaultValue="1"
                       />
+                      </Row>
                       <button
+                        onClick={this.doIncrement}
                         className="btn btn-primary text-white"
                         type="button"
                       >
@@ -114,8 +143,9 @@ componentDidMount(){
                   </div>
 
                   <button
+                  style={{marginTop:"10px"}}
                     type="button"
-                    className="btn btn-sm btn-warning mr-2"
+                    className="btn btn-lg btn-warning mr-2"
                     title="Buy now"
                   >
                     <FontAwesomeIcon icon={faShoppingCart} /> Buy now
@@ -257,6 +287,7 @@ componentDidMount(){
         </div>
       </div>
           </Suspense>
+          </Container>
     );
   }
 }

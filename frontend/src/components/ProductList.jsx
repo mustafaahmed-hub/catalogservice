@@ -57,7 +57,7 @@ class ProductList extends Component
                      <Row>
                          <Col><h3>Products</h3></Col>
                          <Col> <Button variant="primary"
-                                       onClick={() => window.open(window.location.href + "createproduct", "_blank")}>Create
+                                       onClick={() => window.open("createproduct", "_blank")}>Create
                              Product</Button>{' '}</Col>
                      </Row>
                  </Container>
