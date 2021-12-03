@@ -9,6 +9,7 @@ public class ProductDescDto {
     private Double productPrice;
     private Integer productAvailability;
     private Double productWeight;
+    private String imageUrl;
     private String productDescription;
     private String productDimension;
 }

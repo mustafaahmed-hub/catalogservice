@@ -24,7 +24,6 @@ public class Product {
     private String id;
     @PrimaryKeyColumn(name = "product_name" ,type = PrimaryKeyType.CLUSTERED)
     private String name;
-    @PrimaryKeyColumn(type = PrimaryKeyType.CLUSTERED)
     @CassandraType(type = CassandraType.Name.DOUBLE)
     private double price;
     @Column("image_url")

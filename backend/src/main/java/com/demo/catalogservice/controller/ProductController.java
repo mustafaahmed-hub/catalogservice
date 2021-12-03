@@ -2,6 +2,7 @@ package com.demo.catalogservice.controller;
 
 import com.demo.catalogservice.dto.ProductDescDto;
 import com.demo.catalogservice.model.Product;
+import com.demo.catalogservice.model.ProductDescription;
 import com.demo.catalogservice.service.GraphQLProvider;
 import com.demo.catalogservice.service.ProductService;
 import graphql.ExecutionResult;
@@ -67,10 +68,27 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.OK).body("Product deleted");
     }
     //get product description
-    @GetMapping("description/{pid}/{id}")
-    public ResponseEntity getProductDescription(@PathVariable String pid,@PathVariable String id){
-        ProductDescDto productDescDto = productservice.getProductDescription(pid,id);
+    @GetMapping("description/{pid}")
+    public ResponseEntity getProductDescription(@PathVariable String pid){
+        ProductDescDto productDescDto = productservice.getProductDescription(pid);
         return ResponseEntity.status(HttpStatus.OK).body(productDescDto);
+    }
+    //create product description
+    @PostMapping("/description")
+    public ResponseEntity createProductDescription(@RequestBody ProductDescription productDescription){
+        productservice.createProductDescription(productDescription);
+        return ResponseEntity.status(HttpStatus.OK).body("Product Description created");
+    }
+    @PutMapping("description/{id}")
+    public ResponseEntity updateProductDescription(@PathVariable String id ,@RequestBody ProductDescription productDescription){
+        ProductDescription updatedBody = productservice.updateProductDescriptionById(id,productDescription);
+        return ResponseEntity.status(HttpStatus.OK).body(updatedBody);
+    }
+    //delete product description
+    @DeleteMapping("/description/{id}")
+    public ResponseEntity deleteProductDescription(@PathVariable String id){
+        productservice.deleteProductDescriptionById(id);
+        return ResponseEntity.status(HttpStatus.OK).body("Description deleted");
     }
 
 

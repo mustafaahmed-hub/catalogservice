@@ -99,6 +99,7 @@ public class ProductService {
             throw new ProductNotFoundException(exception_msg + " " + id);
         }
         productRepository.delete(product.get());
+        deleteProductDescriptionById(id);
     }
 
 
@@ -112,18 +113,41 @@ public class ProductService {
         return products;
     }
 
-    public ProductDescDto getProductDescription(String pid, String id) {
-        ShipNodeItemDto shipNodeItemDto = restTemplate.getForObject(config.getInventoryService()+"/"+pid, ShipNodeItemDto.class);
-        Optional<ProductDescription> tmp = productDescriptionRepository.findById(id);
+    public ProductDescDto getProductDescription(String pid) {
+//        ShipNodeItemDto shipNodeItemDto = restTemplate.getForObject(config.getInventoryService()+"/"+pid, ShipNodeItemDto.class);
+        Optional<ProductDescription> tmp = productDescriptionRepository.findById(pid);
         ProductDescription productDescription = tmp.get();
         ProductDescDto productDescDto = new ProductDescDto();
-        productDescDto.setProductAvailability(shipNodeItemDto.getQuantityAvailable());
+//        productDescDto.setProductAvailability(shipNodeItemDto.getQuantityAvailable());
+        productDescDto.setProductAvailability(100);
+        productDescDto.setImageUrl(productDescription.getImageUrl());
         productDescDto.setProductDescription(productDescription.getDescription());
         productDescDto.setProductId(productDescription.getId());
         productDescDto.setProductPrice(productDescription.getPrice());
         productDescDto.setProductName(productDescription.getName());
         productDescDto.setProductWeight(productDescription.getWeight());
+        productDescDto.setProductDimension(productDescription.getLength()+","+ productDescription.getBreadth()+","+productDescription.getHeight());
         return productDescDto;
 
+    }
+    // create product description
+    public void createProductDescription(ProductDescription productDescription) {
+        productDescriptionRepository.save(productDescription);
+    }
+    //delete product description
+    public void deleteProductDescriptionById(String id) {
+        Optional<ProductDescription> productDescription = productDescriptionRepository.findById(id);
+        if(productDescription.isPresent()){
+            productDescriptionRepository.delete(productDescription.get());
+        }
+    }
+
+//update the product description
+    public ProductDescription updateProductDescriptionById(String id, ProductDescription productDescription) {
+        Optional<ProductDescription> productDescription1 = productDescriptionRepository.findById(id);
+//        if(productDescription1.isEmpty()){
+//
+//        }
+        return productDescriptionRepository.save(productDescription);
     }
 }

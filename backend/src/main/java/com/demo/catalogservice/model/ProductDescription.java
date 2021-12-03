@@ -10,11 +10,10 @@ import java.util.UUID;
 @Data
 @Table("product_description")
 public class ProductDescription {
-    @PrimaryKeyColumn(name = "product_id",type = PrimaryKeyType.PARTITIONED)
+    @PrimaryKey(value = "product_id")
     private String id;
     @CassandraType(type = CassandraType.Name.TEXT)
     private String description;
-    @PrimaryKeyColumn(type = PrimaryKeyType.CLUSTERED)
     @CassandraType(type = CassandraType.Name.DOUBLE)
     private Double weight;
     @Column("product_name")
